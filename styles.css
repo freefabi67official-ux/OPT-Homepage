@@ -99,3 +99,75 @@ h2{margin-top:0}
 }
 /* Utilities */
 .code{background:rgba(0,0,0,0.18);padding:2px 6px;border-radius:6px;font-family:monospace;font-size:13px}
+
+/* =========================
+   Rollen-Seite (NEU)
+   ========================= */
+
+.roles-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:16px;
+  margin-top:16px;
+}
+
+.role-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  border-radius: var(--radius);
+  padding:16px;
+  box-shadow: var(--card-shadow);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+}
+
+.role-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(2,6,23,0.75);
+}
+
+.role-card h3{
+  margin:0 0 6px 0;
+  font-size:18px;
+  color: var(--accent-2);
+}
+
+.role-card .rank{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.6px;
+  color:#071021;
+  background: var(--accent);
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  margin-bottom:6px;
+  text-transform:uppercase;
+}
+
+.role-card p{
+  margin:0;
+  color: var(--muted);
+  font-size:14px;
+  line-height:1.4;
+}
+
+/* Optional: kleine Icon-Box oben rechts in der Karte */
+.role-card .icon{
+  margin-left:auto;
+  font-size:20px;
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,0.35));
+}
+
+/* Responsive tweaks für Rollen */
+@media(max-width:520px){
+  .roles-grid{grid-template-columns:1fr}
+  .role-card{padding:12px}
+}
+
+/* Utility: farbige Varianten (falls du verschiedene Akzente möchtest) */
+.role-card.variant-amber .rank{background:#ff9f1c}
+.role-card.variant-red .rank{background:#ff4d6d}
+.role-card.variant-blue .rank{background:#1e90ff}
