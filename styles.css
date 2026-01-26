@@ -171,3 +171,78 @@ h2{margin-top:0}
 .role-card.variant-amber .rank{background:#ff9f1c}
 .role-card.variant-red .rank{background:#ff4d6d}
 .role-card.variant-blue .rank{background:#1e90ff}
+
+/* -------------------------
+   Kleiner Discord-Button (etwas größer)
+   unten rechts, dezent
+   ------------------------- */
+.discord-link {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #5865F2; /* Discord-Farbe */
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 10px 26px rgba(2,6,23,0.55);
+  transform-origin: center;
+  z-index: 10000;
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+/* Icon */
+.discord-link img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  flex-shrink: 0;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.86));
+}
+
+/* Hover / Fokus */
+.discord-link:hover,
+.discord-link:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(2,6,23,0.55);
+  opacity: 1;
+  outline: none;
+}
+
+.discord-link:focus {
+  box-shadow: 0 0 0 6px rgba(88,101,242,0.14);
+}
+
+/* Mobile: nur Icon anzeigen, Text ausblenden (aber etwas größer für Touch) */
+@media (max-width: 520px) {
+  .discord-link {
+    padding: 12px;
+    border-radius: 999px;
+    gap: 0;
+    width: auto;
+  }
+  .discord-link img {
+    width: 24px;
+    height: 24px;
+  }
+  .discord-link span { 
+    display: none;
+  }
+}
+
+/* Desktop: sanfte Text-Transition */
+@media (min-width: 521px) {
+  .discord-link span {
+    transition: opacity 160ms ease, transform 160ms ease;
+    opacity: 1;
+    white-space: nowrap;
+  }
+  .discord-link:not(:hover) span {
+    opacity: 0.98;
+  }
+}
