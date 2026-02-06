@@ -247,26 +247,16 @@ h2{margin-top:0}
   }
 }
 
-:root {
-  --gallery-img-size: 24px; /* Desktop-Größe */
-  --gallery-img-size-mobile: 20px; /* Mobile-Größe */
-  --gallery-gap: 8px;
-  --gallery-padding-x: 12px;
-  --gallery-padding-y: 6px;
-}
-
-/* Gallery-Button: fixiert unten links */
+/* Gallery-Button: fixiert unten links — eigene Klasse, nichts mit Discord */
 .gallery-btn {
   position: fixed;
   left: 16px;
   bottom: 16px;
-  top: auto;                 /* sicherstellen, dass top nicht greift */
-  transform: none;           /* keine vertikale Verschiebung mehr */
   display: inline-flex;
   align-items: center;
-  gap: var(--gallery-gap);
-  padding: var(--gallery-padding-y) var(--gallery-padding-x);
-  background: linear-gradient(180deg,#5865F2,#4752CC);
+  gap: 8px;
+  padding: 6px 12px;
+  background: linear-gradient(180deg,#5865F2,#4752CC); /* anpassen wenn gewünscht */
   color: #fff;
   text-decoration: none;
   border-radius: 9999px;
@@ -279,30 +269,29 @@ h2{margin-top:0}
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Bild innerhalb des Buttons — jetzt klein */
+/* Bild klein halten (24px) */
 .gallery-btn img {
-  width: var(--gallery-img-size);
-  height: var(--gallery-img-size);
+  width: 24px;
+  height: 24px;
   object-fit: cover;
   border-radius: 6px;
   flex-shrink: 0;
   display: block;
 }
 
-/* Hover / Fokus-Effekte (Skalierung um Mittelpunkt des Buttons) */
+/* Hover / Fokus */
 .gallery-btn:hover,
 .gallery-btn:focus {
   transform: scale(1.03);
   box-shadow: 0 10px 30px rgba(20,20,40,0.32);
   outline: none;
 }
-
 .gallery-btn:focus-visible {
   outline: 3px solid rgba(255,255,255,0.12);
   outline-offset: 3px;
 }
 
-/* Auf kleinen Bildschirmen: kompakter, Text ausblenden, bleibt unten links */
+/* Auf kleinen Bildschirmen: kompakter, Text ausblenden (bleibt unten links) */
 @media (max-width: 520px) {
   .gallery-btn {
     left: 12px;
@@ -317,28 +306,7 @@ h2{margin-top:0}
     display: none;
   }
   .gallery-btn img {
-    width: var(--gallery-img-size-mobile);
-    height: var(--gallery-img-size-mobile);
-    border-radius: 6px;
+    width: 20px;
+    height: 20px;
   }
 }
-
-/* Gallery links */
-.discord-left {
-  position: fixed !important;
-  left: 16px !important;
-  bottom: 16px !important;
-  right: auto !important;
-  top: auto !important;
-  transform: none !important; /* entfernt z.B. translateY(-50%) */
-  z-index: 9999 !important;
-}
-
-/* Optional: auf sehr kleinen Bildschirmen etwas Abstand anpassen */
-@media (max-width: 520px) {
-  .discord-left {
-    left: 12px !important;
-    bottom: 12px !important;
-  }
-}
-
