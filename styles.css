@@ -247,16 +247,17 @@ h2{margin-top:0}
   }
 }
 
-/* Gallery-Button: fixiert unten links — eigene Klasse, nichts mit Discord */
+/* Gallery-Button: ganz unten, zentriert */
 .gallery-btn {
   position: fixed;
-  left: 16px;
-  bottom: 16px;
+  left: 50%;
+  bottom: 12px;                 /* Abstand vom unteren Rand (auf 0 setzen für absolut ganz unten) */
+  transform: translateX(-50%);  /* zentriert horizontal */
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  background: linear-gradient(180deg,#5865F2,#4752CC); /* anpassen wenn gewünscht */
+  background: linear-gradient(180deg,#5865F2,#4752CC);
   color: #fff;
   text-decoration: none;
   border-radius: 9999px;
@@ -282,7 +283,7 @@ h2{margin-top:0}
 /* Hover / Fokus */
 .gallery-btn:hover,
 .gallery-btn:focus {
-  transform: scale(1.03);
+  transform: translateX(-50%) scale(1.03); /* Achtung: translateX(-50%) beibehalten */
   box-shadow: 0 10px 30px rgba(20,20,40,0.32);
   outline: none;
 }
@@ -291,13 +292,12 @@ h2{margin-top:0}
   outline-offset: 3px;
 }
 
-/* Auf kleinen Bildschirmen: kompakter, Text ausblenden (bleibt unten links) */
+/* Auf kleinen Bildschirmen: Text ausblenden, Button bleibt zentriert unten */
 @media (max-width: 520px) {
   .gallery-btn {
-    left: 12px;
     bottom: 12px;
     padding: 8px;
-    border-radius: 12px;
+    border-radius: 28px;
     width: 56px;
     height: 56px;
     justify-content: center;
