@@ -248,20 +248,24 @@ h2{margin-top:0}
 }
 
 :root {
-  --gallery-img-size: 24px; /* Desktop-Größe: anpassen wenn du willst */
+  --gallery-img-size: 24px; /* Desktop-Größe */
   --gallery-img-size-mobile: 20px; /* Mobile-Größe */
+  --gallery-gap: 8px;
+  --gallery-padding-x: 12px;
+  --gallery-padding-y: 6px;
 }
 
-/* Floating Gallery-Button (linke Seite, mittig) */
+/* Gallery-Button: fixiert unten links */
 .gallery-btn {
   position: fixed;
   left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 16px;
+  top: auto;                 /* sicherstellen, dass top nicht greift */
+  transform: none;           /* keine vertikale Verschiebung mehr */
   display: inline-flex;
   align-items: center;
-  gap: 8px;                 /* etwas enger als vorher */
-  padding: 6px 12px;        /* etwas kompakter */
+  gap: var(--gallery-gap);
+  padding: var(--gallery-padding-y) var(--gallery-padding-x);
   background: linear-gradient(180deg,#5865F2,#4752CC);
   color: #fff;
   text-decoration: none;
@@ -275,7 +279,7 @@ h2{margin-top:0}
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Bild innerhalb des Buttons — jetzt kleiner */
+/* Bild innerhalb des Buttons — jetzt klein */
 .gallery-btn img {
   width: var(--gallery-img-size);
   height: var(--gallery-img-size);
@@ -285,10 +289,10 @@ h2{margin-top:0}
   display: block;
 }
 
-/* Hover / Fokus-Effekte */
+/* Hover / Fokus-Effekte (Skalierung um Mittelpunkt des Buttons) */
 .gallery-btn:hover,
 .gallery-btn:focus {
-  transform: translateY(-50%) scale(1.03);
+  transform: scale(1.03);
   box-shadow: 0 10px 30px rgba(20,20,40,0.32);
   outline: none;
 }
@@ -298,9 +302,11 @@ h2{margin-top:0}
   outline-offset: 3px;
 }
 
-/* Auf kleinen Bildschirmen: noch kleineres Icon, Text ausblenden */
+/* Auf kleinen Bildschirmen: kompakter, Text ausblenden, bleibt unten links */
 @media (max-width: 520px) {
   .gallery-btn {
+    left: 12px;
+    bottom: 12px;
     padding: 8px;
     border-radius: 12px;
     width: 56px;
@@ -313,5 +319,6 @@ h2{margin-top:0}
   .gallery-btn img {
     width: var(--gallery-img-size-mobile);
     height: var(--gallery-img-size-mobile);
+    border-radius: 6px;
   }
 }
