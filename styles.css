@@ -322,3 +322,23 @@ h2{margin-top:0}
     border-radius: 6px;
   }
 }
+
+/* Gallery links */
+.discord-left {
+  position: fixed !important;
+  left: 16px !important;
+  bottom: 16px !important;
+  right: auto !important;
+  top: auto !important;
+  transform: none !important; /* entfernt z.B. translateY(-50%) */
+  z-index: 9999 !important;
+}
+
+/* Optional: auf sehr kleinen Bildschirmen etwas Abstand anpassen */
+@media (max-width: 520px) {
+  .discord-left {
+    left: 12px !important;
+    bottom: 12px !important;
+  }
+}
+
