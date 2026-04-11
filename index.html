@@ -3,61 +3,213 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Clan — Start</title>
+  <title>OPT Clan — Startseite</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div id="particle-overlay">
+    <canvas id="particle-canvas"></canvas>
+  </div>
+
   <header class="site-header">
-    <div class="brand">OPT Homepage</div>
+    <div class="brand">🎮 OPT Clan</div>
     <nav class="navbar">
-  <a href="index.html">Start</a>
-  <a href="info.html">Info</a>
-  <a href="requirements.html">Voraussetzungen</a>
-  <a href="team.html">Team</a>
-  <a href="roles.html">Rollen</a>
-</nav>
+      <a href="index.html">Start</a>
+      <a href="info.html">Info</a>
+      <a href="requirements.html">Voraussetzungen</a>
+      <a href="team.html">Team</a>
+      <a href="roles.html">Rollen</a>
+    </nav>
   </header>
 
   <main class="container">
     <section class="hero card">
-      <h1>Willkommen beim OPT Clan</h1>
-      <p>Schön, dass du da bist — benutze die Navigation, um zu den verschiedenen Seiten zu springen.</p>
-      <div class="cta">
-        <a class="btn" href="requirements.html">Voraussetzungen</a>
-        <a class="btn ghost" href="team.html">Team ansehen</a>
+      <div>
+        <h1>Willkommen beim OPT Clan</h1>
+        <p>Tritt unserer lebendigen Community bei und erlebe Minecraft auf einem neuen Level. Gemeinsames Bauen, Events und vor allem: Spaß!</p>
+        <div class="cta">
+          <a class="btn" href="requirements.html">Jetzt beitreten</a>
+          <a class="btn ghost" href="team.html">Team ansehen</a>
+        </div>
       </div>
     </section>
 
     <section class="card">
-      <h2>Kurzinfos</h2>
-      <p>Server-IP: <strong>OPSUCHT.NET</strong></p>
-      <p>Clan-Zweck: Gemeinsames Bauen, Events — SPAß!</p>
-	  <p>Platform: Minecraft-Server </p>
+      <h2>⚡ Kurzinfos</h2>
+      <p><strong>Server-IP:</strong> <code style="background: rgba(29, 209, 161, 0.1); padding: 2px 8px; border-radius: 6px; color: var(--accent);">OPSUCHT.NET</code></p>
+      <p><strong>Clan-Zweck:</strong> Gemeinsames Bauen, Events — SPAß!</p>
+      <p><strong>Plattform:</strong> Minecraft-Server</p>
+    </section>
+
+    <section class="card">
+      <h2>🌟 Was erwartet dich?</h2>
+      <ul class="requirements">
+        <li>Eine aktive und freundliche Community</li>
+        <li>Regelmäßige Events und gemeinsame Bauprojekte</li>
+        <li>Support und Hilfe von erfahrenen Spielern</li>
+        <li>Ein sicherer Ort zum Spielen und Spaß haben</li>
+      </ul>
     </section>
   </main>
 
-<a
-  class="gallery-btn"
-  href="https://gallery-opt.base44.app/"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Gallery OPT öffnen (öffnet neues Fenster)"
-  title="Gallery OPT öffnen"
->
-  <img src="Gallery.png" alt="Gallery Vorschaubild">
-  <span>Gallery OPT</span>
-</a>
+  <a href="https://www.tiktok.com/@opt_officialtk" class="tiktok-link" target="_blank" rel="noopener">
+    <span>🎵</span>
+    <span>TikTok</span>
+  </a>
 
-<a href="https://discord.gg/6Xq8JVTJtD" class="discord-link" target="_blank" rel="noopener">
-  <img src="discord.png" alt="Discord">
-  <span>Bewerbungs Discord</span>
-</a>
-	
-<footer class="site-footer">
-  <h2>Impressum</h2>
-  <p>© 2026 FreeFabi67. Alle Rechte vorbehalten</p>
-  <p>Kontakt: first.opt.official@gmail.com</p>
-</footer>
+  <a href="https://discord.gg/6Xq8JVTJtD" class="discord-link" target="_blank" rel="noopener">
+    <img src="discord.png" alt="Discord">
+    <span>Discord</span>
+  </a>
 
+  <footer class="site-footer">
+    <h2>Kontakt & Impressum</h2>
+    <p>© FreeFabi67 2026 | OPT Clan</p>
+    <p>📧 Email: first.opt.official@gmail.com</p>
+  </footer>
+
+  <script>
+    (() => {
+      const text = "Willkommen beim OPT Clan";
+      const fontSize = 100;
+      const density = 3;
+      const particleSize = 2;
+      const ease = 0.055;
+      const friction = 0.85;
+      const maxSpeed = 3;
+
+      const canvas = document.getElementById("particle-canvas");
+      const ctx = canvas.getContext("2d");
+      const overlay = document.getElementById("particle-overlay");
+
+      const off = document.createElement("canvas");
+      const offCtx = off.getContext("2d");
+
+      let W = 0, H = 0, DPR = 1;
+      let particles = [];
+      let animationStartTime = null;
+      const PARTICLE_DURATION = 3500;
+
+      function resize() {
+        DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+        W = window.innerWidth;
+        H = window.innerHeight;
+
+        canvas.width = Math.floor(W * DPR);
+        canvas.height = Math.floor(H * DPR);
+        canvas.style.width = W + "px";
+        canvas.style.height = H + "px";
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+        off.width = Math.floor(W * DPR);
+        off.height = Math.floor(H * DPR);
+        offCtx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+        buildParticles();
+      }
+
+      function buildParticles() {
+        offCtx.clearRect(0, 0, W, H);
+        offCtx.fillStyle = "#fff";
+        offCtx.textAlign = "center";
+        offCtx.textBaseline = "middle";
+        offCtx.font = `900 ${fontSize}px Arial Black, Arial, sans-serif`;
+        offCtx.fillText(text, W / 2, H / 2.5);
+
+        const img = offCtx.getImageData(0, 0, W, H).data;
+        particles = [];
+
+        for (let y = 0; y < H; y += density) {
+          for (let x = 0; x < W; x += density) {
+            const i = (y * W + x) * 4;
+            if (img[i + 3] > 120) {
+              particles.push({
+                x: Math.random() * W,
+                y: Math.random() * H,
+                tx: x,
+                ty: y,
+                vx: 0,
+                vy: 0,
+                c: Math.random() < 0.5 ? "rgba(29,209,161,0.9)" : "rgba(0,210,252,0.85)"
+              });
+            }
+          }
+        }
+      }
+
+      function drawBackground() {
+        ctx.clearRect(0, 0, W, H);
+
+        const g = ctx.createRadialGradient(W / 2, H / 2, 50, W / 2, H / 2, Math.max(W, H) * 0.8);
+        g.addColorStop(0, "rgba(29, 209, 161, 0.06)");
+        g.addColorStop(0.6, "rgba(10, 20, 30, 0.02)");
+        g.addColorStop(1, "rgba(0, 0, 0, 0)");
+
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, H);
+      }
+
+      function animate(timestamp) {
+        if (!animationStartTime) {
+          animationStartTime = timestamp;
+        }
+
+        const elapsed = timestamp - animationStartTime;
+        const progress = Math.min(elapsed / PARTICLE_DURATION, 1);
+
+        drawBackground();
+        ctx.globalCompositeOperation = "lighter";
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+
+          const dx = p.tx - p.x;
+          const dy = p.ty - p.y;
+
+          p.vx += dx * ease;
+          p.vy += dy * ease;
+
+          p.vx *= friction;
+          p.vy *= friction;
+
+          const speed = Math.hypot(p.vx, p.vy);
+          if (speed > maxSpeed) {
+            p.vx = (p.vx / speed) * maxSpeed;
+            p.vy = (p.vy / speed) * maxSpeed;
+          }
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          let alpha = 0.9;
+          if (progress > 0.75) {
+            alpha = 0.9 * (1 - (progress - 0.75) / 0.25);
+          }
+
+          const baseColor = p.c;
+          const alphaColor = baseColor.replace(/[\d.]+\)/, alpha + ")");
+          ctx.fillStyle = alphaColor;
+          ctx.fillRect(p.x, p.y, particleSize, particleSize);
+        }
+
+        ctx.globalCompositeOperation = "source-over";
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          overlay.style.opacity = "0";
+          overlay.style.pointerEvents = "none";
+          setTimeout(() => {
+            overlay.style.display = "none";
+          }, 1000);
+        }
+      }
+
+      window.addEventListener("resize", resize, { passive: true });
+
+      resize();
+      requestAnimationFrame(animate);
+    })();
+  </script>
 </body>
 </html>
